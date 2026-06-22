@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   F TOOLS — sistema de diseño maximalista
+   Neo-brutalismo + Memphis + paquete de stickers.
+   Paleta saturada, bordes negros gruesos, sombras duras desplazadas.
+   =========================================================================== */
+@theme {
+  /* Lienzo */
+  --color-cream: #fff8e7;
+  --color-ink: #0a0a0a;
+
+  /* Paleta vibrante (cada herramienta toma su acento de aquí) */
+  --color-pink: #ff2e97;
+  --color-blue: #2d5bff;
+  --color-lime: #b8ff3d;
+  --color-yellow: #ffd400;
+  --color-orange: #ff6b2c;
+  --color-purple: #9a3cff;
+  --color-teal: #00d6c2;
+  --color-red: #ff3b30;
+
+  /* Tipografía con carácter */
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
+
+  /* Sombras duras, sólidas, sin blur — la firma neo-brutalista */
+  --shadow-brutal-sm: 3px 3px 0 0 var(--color-ink);
+  --shadow-brutal: 6px 6px 0 0 var(--color-ink);
+  --shadow-brutal-lg: 10px 10px 0 0 var(--color-ink);
+  --shadow-brutal-xl: 16px 16px 0 0 var(--color-ink);
+
+  /* Animaciones alegres */
+  --animate-wiggle: wiggle 0.5s ease-in-out;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-bob: bob 3s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    /* Sutil retícula Memphis de puntos sobre el crema */
+    background-image: radial-gradient(var(--color-ink) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    background-position: -14px -14px;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height: 0.95; }
+
+  /* Foco visible siempre — accesibilidad por encima del estilo ruidoso */
+  :focus-visible {
+    outline: 4px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Marco neo-brutalista reutilizable: borde grueso + sombra dura */
+  .brutal {
+    border: 3px solid var(--color-ink);
+    box-shadow: var(--shadow-brutal);
+  }
+  /* Botón/card "presionable": al pulsar se hunde hacia su propia sombra */
+  .pressable {
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
+  }
+  .pressable:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-brutal-lg); }
+  .pressable:active { transform: translate(6px, 6px); box-shadow: none; }
+}
